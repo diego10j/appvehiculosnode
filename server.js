@@ -9,9 +9,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }))
 
 //Rutas de la aplicación
-//app.use(require('./rutas/vehiculo'));
-//app.use(require('./rutas/marca'));
-//app.use(require('./rutas/usuario'));
+app.use(require('./rutas/vehiculo'));
+app.use(require('./rutas/usuario'));
 app.use(require('./rutas/autentificar'));
 
 app.listen(port, function () {
