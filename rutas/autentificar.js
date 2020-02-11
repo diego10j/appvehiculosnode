@@ -17,7 +17,7 @@ app.post('/autentificar', (req, res) => {
             });
         }
         //Busca el usuario por el correo
-        var collection = db.db("appnode").collection('Estudiante');
+        var collection = db.db("appnode").collection('Usuario');
         collection.find({ correo: correo }).toArray(function (err, usuario) {            
             if (err) {
                 return res.status(500).json({
