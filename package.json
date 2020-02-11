@@ -1,0 +1,19 @@
+{
+  "name": "appvehiculosnode",
+  "version": "1.0.0",
+  "description": "App Actividad 2 Ingeniería y Desarrollo en la Web",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "nodemon": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Diego Jacome",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "mongodb": "^2.2.11",
+    "jsonwebtoken": "^8.2.0"
+  }
+}
