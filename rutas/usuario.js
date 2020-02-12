@@ -148,4 +148,51 @@ app.post('/usuario', function (req, res) {
         });
 })
 
+
+
+/**
+ * Modificar un Usuario por Id
+ */
+app.put('/usuario/:id', function (req, res) {
+    try {
+        var usuario = {
+            nombres: req.body.nombres,
+            correo: req.body.correo,
+            clave: req.body.clave
+        }
+        var IDusuario = require('mongodb').ObjectID(req.params.id);
+        // Abrir el cliente
+        MongoClient.connect('mongodb+srv://diego:oGAjHhVk2sXthtLq@cluster0-eikjc.mongodb.net/appnode',
+            function (err, db) {
+                if (err) {
+                    return res.status(500).json({
+                        error: true,
+                        mensaje: 'Ha ocurrido un problema al conectar a la base de datos.'
+                    });
+                }
+                var collection = db.db("appnode").collection('Usuario');
+                collection.update({ "_id": id }, { $set: usuario }, function (err, result) {
+                    if (err) {
+                        return res.status(500).json({
+                            error: true,
+                            mensaje: err
+                        });
+                    }
+                    res.status(200).json({
+                        error: false,
+                        usuario: result,
+                        mensaje: 'Usuario modificado exitosamente.'
+                    });
+                    // Cerrar el cliente
+                    db.close();
+                });
+            });
+    } catch (err) {
+        return res.status(500).json({
+            error: true,
+            mensaje: 'Id no válido.'
+        });
+    }
+})
+
 module.exports = app;
