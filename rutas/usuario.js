@@ -171,7 +171,7 @@ app.put('/usuario/:id', function (req, res) {
                     });
                 }
                 var collection = db.db("appnode").collection('Usuario');
-                collection.update({ "_id": id }, { $set: usuario }, function (err, result) {
+                collection.update({ "_id": IDusuario }, { $set: usuario }, function (err, result) {
                     if (err) {
                         return res.status(500).json({
                             error: true,
@@ -180,7 +180,7 @@ app.put('/usuario/:id', function (req, res) {
                     }
                     res.status(200).json({
                         error: false,
-                        usuario: result,
+                        usuario: result
                         mensaje: 'Usuario modificado exitosamente.'
                     });
                     // Cerrar el cliente
