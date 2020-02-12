@@ -25,7 +25,7 @@ app.get('/usuario', function (req, res) {
                 }
                 res.status(200).json({
                     error: false,
-                    usuarios: result[0]
+                    usuarios: result
                 });
                 // Cerrar el cliente
                 db.close();
