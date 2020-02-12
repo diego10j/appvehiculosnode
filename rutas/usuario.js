@@ -180,7 +180,7 @@ app.put('/usuario/:id', function (req, res) {
                     }
                     res.status(200).json({
                         error: false,
-                        usuario: result
+                        usuario: result,
                         mensaje: 'Usuario modificado exitosamente.'
                     });
                     // Cerrar el cliente
