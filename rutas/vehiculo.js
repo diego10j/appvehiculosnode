@@ -25,7 +25,7 @@ app.get('/vehiculo', verificarToken, (req, res) => {
                 }
                 res.status(200).json({
                     error: false,
-                    vehiculos: result[0]
+                    vehiculos: result
                 });
                 // Cerrar el cliente
                 db.close();
@@ -130,7 +130,8 @@ app.post('/vehiculo', verificarToken, function (req, res) {
                 modelo: req.body.modelo,
                 precio: req.body.precio,
                 color: req.body.color,
-                anio: req.body.anio
+                anio: req.body.anio,
+                urlImagen: req.body.urlImagen
             }
             var collection = db.db("appnode").collection('Vehiculo');
             collection.insert(vehiculo, function (err, result) {
@@ -150,5 +151,55 @@ app.post('/vehiculo', verificarToken, function (req, res) {
             });
         });
 })
+
+
+/**
+ * Modificar un Usuario por Id
+ */
+app.put('/Vehiculo/:id', function (req, res) {
+    try {
+        var vehiculo = {
+            marca: req.body.marca,
+            modelo: req.body.modelo,
+            precio: req.body.precio,
+            color: req.body.color,
+            anio: req.body.anio,
+            urlImagen: req.body.urlImagen
+        }
+        var IDvehiculo = require('mongodb').ObjectID(req.params.id);
+        // Abrir el cliente
+        MongoClient.connect('mongodb+srv://diego:oGAjHhVk2sXthtLq@cluster0-eikjc.mongodb.net/appnode',
+            function (err, db) {
+                if (err) {
+                    return res.status(500).json({
+                        error: true,
+                        mensaje: 'Ha ocurrido un problema al conectar a la base de datos.'
+                    });
+                }
+                var collection = db.db("appnode").collection('Vehiculo');
+                collection.update({ "_id": IDvehiculo }, { $set: vehiculo }, function (err, result) {
+                    if (err) {
+                        return res.status(500).json({
+                            error: true,
+                            mensaje: err
+                        });
+                    }
+                    res.status(200).json({
+                        error: false,
+                        vehiculo: result,
+                        mensaje: 'Usuario modificado exitosamente.'
+                    });
+                    // Cerrar el cliente
+                    db.close();
+                });
+            });
+    } catch (err) {
+        return res.status(500).json({
+            error: true,
+            mensaje: 'Id no válido.'
+        });
+    }
+})
+
 
 module.exports = app;
