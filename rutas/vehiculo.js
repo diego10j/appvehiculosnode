@@ -5,7 +5,7 @@ const verificarToken  = require('../jwt/verificar');
 /**
  * Consulta todos los Vehiculo
  */
-app.get('/vehiculo', verificarToken, (req, res) => {
+app.get('/vehiculo', (req, res) => {
     // Abrir el cliente
     MongoClient.connect('mongodb+srv://diego:oGAjHhVk2sXthtLq@cluster0-eikjc.mongodb.net/appnode',
         function (err, db) {
@@ -154,7 +154,7 @@ app.post('/vehiculo', verificarToken, function (req, res) {
 
 
 /**
- * Modificar un Usuario por Id
+ * Modificar un Vehiculo por Id
  */
 app.put('/Vehiculo/:id', function (req, res) {
     try {
@@ -187,7 +187,7 @@ app.put('/Vehiculo/:id', function (req, res) {
                     res.status(200).json({
                         error: false,
                         vehiculo: result,
-                        mensaje: 'Usuario modificado exitosamente.'
+                        mensaje: 'Vehículo modificado exitosamente.'
                     });
                     // Cerrar el cliente
                     db.close();
